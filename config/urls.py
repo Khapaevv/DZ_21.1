@@ -7,3 +7,8 @@ urlpatterns = [
     path('contacts/', views.contacts, name='contacts'),
     path('', include('catalog.urls', namespace='catalog'))
 ]
+
+
+
+
+
