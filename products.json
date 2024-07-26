@@ -1,0 +1,67 @@
+[
+  {
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+      "name": "Iphone 13pro",
+      "description": "нормальный телефон",
+      "image": "",
+      "category": 1,
+      "price": 120000,
+      "created_at": "2024-07-26T13:16:35.429Z",
+      "updated_at": "2024-07-26T13:16:35.429Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+      "name": "Xiaomi",
+      "description": "Хороший телефон",
+      "image": "",
+      "category": 1,
+      "price": 45000,
+      "created_at": "2024-07-26T13:17:08.261Z",
+      "updated_at": "2024-07-26T13:17:08.261Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+      "name": "Nokia",
+      "description": "плохой телефон, но вместительная батарея",
+      "image": "",
+      "category": 1,
+      "price": 15000,
+      "created_at": "2024-07-26T13:17:57.021Z",
+      "updated_at": "2024-07-26T13:17:57.021Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 5,
+    "fields": {
+      "name": "LG",
+      "description": null,
+      "image": "",
+      "category": 1,
+      "price": 12345,
+      "created_at": "2024-07-26T14:02:16.213Z",
+      "updated_at": "2024-07-26T14:02:16.213Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 6,
+    "fields": {
+      "name": "Sonyericsson",
+      "description": null,
+      "image": "",
+      "category": 1,
+      "price": 10000,
+      "created_at": "2024-07-26T14:04:52.762Z",
+      "updated_at": "2024-07-26T14:04:52.762Z"
+    }
+  }
+]
