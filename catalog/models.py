@@ -44,7 +44,7 @@ class Product(models.Model):
     )
     category = models.ForeignKey(
         Category,
-        on_delete=models.SET_NULL,
+        on_delete=models.DO_NOTHING,
         verbose_name="Категория",
         help_text="Введите категорию продукта",
     )
