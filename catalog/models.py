@@ -56,6 +56,7 @@ class Product(models.Model):
         auto_now=True, verbose_name="Дата последнего изменения"
     )
 
+
     class Meta:
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
