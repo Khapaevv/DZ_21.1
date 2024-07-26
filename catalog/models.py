@@ -13,7 +13,7 @@ class Category(models.Model):
     description = models.TextField(
         verbose_name="Описание категории",
         help_text="Введите описание категории",
-        **NULLABLE
+        **NULLABLE,
     )
 
     class Meta:
@@ -34,7 +34,7 @@ class Product(models.Model):
     description = models.TextField(
         verbose_name="Описание продукта",
         help_text="Введите описание продукта",
-        **NULLABLE
+        **NULLABLE,
     )
     image = models.ImageField(
         upload_to="images/",
@@ -51,7 +51,9 @@ class Product(models.Model):
     price = models.IntegerField(
         verbose_name="Цена за покупку", help_text="Введите цену за покупку продукта"
     )
-    manufactured_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата производства продукта")
+    manufactured_at = models.DateTimeField(
+        verbose_name="Дата производства продукта", **NULLABLE
+    )
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     updated_at = models.DateTimeField(
         auto_now=True, verbose_name="Дата последнего изменения"
