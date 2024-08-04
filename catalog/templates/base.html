@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.122.0">
-    <title>Album example · Bootstrap v5.3</title>
+    <title>Главная</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/album/">
 
@@ -177,14 +177,18 @@
         </li>
     </ul>
 </div>
-
-
+<header data-bs-theme="dark">
 {% include 'includes/inc_menu.html' %}
+</header>
 
 <main>
-
-
-
+    <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Магазин техники "ДЯДЯ ВОЛОДЯ"</h1>
+        </div>
+    </div>
+</section>
 {% block content %}
 {% endblock %}
 </main>
@@ -192,11 +196,7 @@
 <footer class="text-body-secondary py-5">
     <div class="container">
         <p class="float-end mb-1">
-            <a href="#">Back to top</a>
-        </p>
-        <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-        <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a
-                href="/docs/5.3/getting-started/introduction/">getting started guide</a>.</p>
+            <a href="#">Наверх</a>
     </div>
 </footer>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
