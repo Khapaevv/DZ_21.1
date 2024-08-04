@@ -23,7 +23,9 @@ class Category(models.Model):
     @classmethod
     def truncate_table_restart_id(cls):
         with connection.cursor() as cursor:
-            cursor.execute(f'TRUNCATE TABLE {cls._meta.db_table} RESTART IDENTITY CASCADE')
+            cursor.execute(
+                f"TRUNCATE TABLE {cls._meta.db_table} RESTART IDENTITY CASCADE"
+            )
 
     def __str__(self):
         return self.name
@@ -41,7 +43,7 @@ class Product(models.Model):
         **NULLABLE,
     )
     image = models.ImageField(
-        upload_to="catalog/images",
+        upload_to="products/image",
         verbose_name="Изображение",
         help_text="Загрузите фото продукта",
         **NULLABLE,
@@ -59,7 +61,6 @@ class Product(models.Model):
     updated_at = models.DateTimeField(
         auto_now=True, verbose_name="Дата последнего изменения"
     )
-
 
     class Meta:
         verbose_name = "Продукт"
