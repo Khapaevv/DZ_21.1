@@ -41,7 +41,7 @@ class Product(models.Model):
         **NULLABLE,
     )
     image = models.ImageField(
-        upload_to="images/",
+        upload_to="catalog/images",
         verbose_name="Изображение",
         help_text="Загрузите фото продукта",
         **NULLABLE,
