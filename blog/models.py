@@ -12,6 +12,7 @@ class Blog(models.Model):
     slug = models.CharField(
         max_length=150,
         verbose_name="Иденфикатор",
+        unique=True,
         null=True,
     )
     content = models.TextField(

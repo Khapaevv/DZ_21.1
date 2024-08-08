@@ -10,8 +10,11 @@
                 </div>
                 <div class="card-body">
                     <img class="card-img-top" src="{{ blog.image | media_filter }}">
-                    <p class="text-start">{{ object.content }}</p>
-                    <a class="btn btn-primary" href="{% url 'blog:list'%}" role="button">Назад</a>
+                    <p class="card-text"> Ссылка: {{ object.slug }}</p>
+                    <p class="card-text">Содержимое: {{ object.content }}</p>
+                    <p class="card-text">Дата создания: {{ object.created_at }}</p>
+                    <p class="card-text">Кол-во просмотров: {{ object.count_views }}</p>
+                    <a class="btn btn-primary" href="{% url 'blog:list' %}" role="button">Назад</a>
                 </div>
             </div>
         </div>
