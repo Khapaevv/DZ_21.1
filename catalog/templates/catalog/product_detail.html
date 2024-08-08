@@ -8,10 +8,10 @@
                     <div class="card shadow-sm">
                         <img src="{{ product.image | media_filter }}">
                         <div class="card-body">
-                            <p class="card-text">{{ product.name }}</p>
-                            <p class="card-text">{{ product.description | truncatechars:100 }}</p>
-                            <p class="card-text">Категория: {{ product.category }}</p>
-                            <p class="card-text">Стоимость: {{ product.price }} руб.</p>
+                            <p class="card-text">{{ object.name }}</p>
+                            <p class="card-text">{{ object.description | truncatechars:100 }}</p>
+                            <p class="card-text">Категория: {{ object.category }}</p>
+                            <p class="card-text">Стоимость: {{ object.price }} руб.</p>
                         </div>
                     </div>
                 </div>
