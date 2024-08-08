@@ -11,17 +11,17 @@ class Blog(models.Model):
     )
     slug = models.CharField(
         max_length=150,
-        verbose_name="Индефикатор",
-        unique=True,
+        verbose_name="Иденфикатор",
+        null=True,
     )
     content = models.TextField(
         verbose_name="Содержимое",
         help_text="Введите содержимое",
     )
     image = models.ImageField(
-        upload_to="products/image/1",
+        upload_to="products/image",
         verbose_name="Изображение",
-        help_text="Загрузите фото блога",
+        help_text="Загрузите изображение",
         **NULLABLE,
     )
     created_at = models.DateTimeField(
@@ -34,7 +34,7 @@ class Blog(models.Model):
     )
     count_views = models.IntegerField(
         default=0,
-        verbose_name="Количество просмотров блога",
+        verbose_name="Количество просмотров",
         help_text="Укажите количество просмотров",
     )
 
