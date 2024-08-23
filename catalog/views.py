@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView, TemplateView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView
 
+from catalog.forms import ProductForm
 from catalog.models import Product
 
 
@@ -13,13 +15,23 @@ class ProductListView(ListView):
 #     return render(request, "products_list.html", context)
 
 
-class PriductDetailView(DetailView):
+class ProductDetailView(DetailView):
     model = Product
 
 # def products_detail(request, pk):
 #     product = get_object_or_404(Product, pk=pk)
 #     context = {"product": product}
 #     return render(request, "products_detail.html", context)
+
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:product_list')
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    form_class = ProductForm
 
 
 class BasePageView(TemplateView):

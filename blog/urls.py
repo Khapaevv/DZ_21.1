@@ -1,7 +1,8 @@
 from django.urls import path, include
 from blog.apps import BlogConfig
 from blog.views import BlogCreateView, BlogListView, BlogDetailView, BlogUpdateView, BlogDeleteView, blog_is_publication
-# from catalog.views import ProductListView, ContactsPageView, PriductDetailView
+
+# from catalog.views import ProductListView, ContactsPageView, ProductDetailView
 
 app_name = BlogConfig.name
 
@@ -11,5 +12,5 @@ urlpatterns = [
     path("view/<int:pk>/", BlogDetailView.as_view(), name="view"),
     path("update/<int:pk>/", BlogUpdateView.as_view(), name="update"),
     path("delete/<int:pk>/", BlogDeleteView.as_view(), name="delete"),
-    path("activity/<int:pk>/", blog_is_publication, name="blog_is_publication")
+    path("activity/<int:pk>/", blog_is_publication, name="blog_is_publication"),
 ]
