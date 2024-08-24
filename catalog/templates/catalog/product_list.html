@@ -2,7 +2,7 @@
 {% load my_tags %}
 {% block content %}
 <div class="col-6 mb-5">
-    <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:create_product' %}">Создать продукт</a>
+    <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:products_create' %}">Создать продукт</a>
 </div>
 <div class="album py-5 bg-body-tertiary">
         <div class="container">
@@ -17,6 +17,7 @@
                             <p class="card-text">Категория: {{ product.category }}</p>
                             <p class="card-text">Стоимость: {{ product.price }} руб.</p>
                         </div>
+                         <p class="card-footer"> Актуальная версия продукта: {{ product.active_version }}</p>
                     </div>
                 </div>
                 {% endfor %}
