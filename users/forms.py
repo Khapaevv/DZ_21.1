@@ -10,7 +10,7 @@ class UserRegisterForm(StyleFormMixin, UserCreationForm):
         fields = ("email", "password1", "password2")
 
 
-# class UserRegisterForm(StyleFormMixin, UserCreationForm):
+# class UserLoginForm(StyleFormMixin, UserLoginView):
 #     class Meta:
 #         model = User
-#         fields = ("email", "password1", "password2")
+#         fields = ("email", "password")
