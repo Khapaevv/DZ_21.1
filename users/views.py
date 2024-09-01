@@ -51,19 +51,20 @@ class UserPasswordResetView(PasswordResetView, StyleFormMixin):
 
     def form_valid(self, form):
         email = form.cleaned_data['email']
-        user = User.objects.get(email=email)
-        password = User.objects.make_random_password(length=10)
-        if user:
-            send_mail(
-                subject="Новый пароль",
-                message=f"Привет, вот твой новый пароль {password}",
-                from_email=EMAIL_HOST_USER,
-                recipient_list=[email]
-            )
-            user.set_password(password)
-            user.save()
+        try:
+            user = User.objects.get(email=email)
+            if user:
+                password = User.objects.make_random_password(length=10)
+                user.set_password(password)
+                user.save()
+                send_mail(
+                    subject="Новый пароль",
+                    message=f"Привет, вот твой новый пароль {password}",
+                    from_email=EMAIL_HOST_USER,
+                    recipient_list=[email]
+                )
             return redirect(reverse('users:login'))
-        else:
+        except:
             return redirect(reverse('users:no_mail'))
 
 
