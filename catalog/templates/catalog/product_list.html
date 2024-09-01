@@ -2,7 +2,9 @@
 {% load my_tags %}
 {% block content %}
 <div class="col-6 mb-5">
+    {% if user.is_authenticated %}
     <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:products_create' %}">Создать продукт</a>
+    {% endif %}
 </div>
 
 <div class="album py-5 bg-body-tertiary">
@@ -20,10 +22,12 @@
                             <div class="btn-group">
                                 <a class="btn btn-sm btn-outline-secondary" href="{% url 'catalog:products_detail' product.pk %}"
                                 role="button">Подробно</a>
+                                {% if user.is_authenticated %}
                                 <a class="btn btn-sm btn-outline-secondary" href="{% url 'catalog:products_update' product.pk %}"
                                 role="button">Изменить</a>
                                 <a class="btn btn-sm btn-outline-danger" href="{% url 'catalog:products_delete' product.pk %}"
                                 role="button">Удалить</a>
+                                {% endif %}
                              </div>
                         </div>
                          <p class="card-footer"> Актуальная версия продукта: {{ product.active_version }}</p>
