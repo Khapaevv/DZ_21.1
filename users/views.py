@@ -9,12 +9,13 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView
 
+from catalog.forms import StyleFormMixin
 from config.settings import EMAIL_HOST_USER
 from users.forms import UserRegisterForm
 from users.models import User
 
 
-class UserCreateView(CreateView):
+class UserCreateView(CreateView, StyleFormMixin):
     model = User
     form_class = UserRegisterForm
     success_url = reverse_lazy('users:login')
@@ -42,36 +43,27 @@ def email_verification(request, token):
     return redirect(reverse("users:login"))
 
 
-def generate_random_password():
-    password = (secrets.token_hex(8))
-    new_password = make_password(password)
-    # print(new_password)
-    return 'new_password'
 
-
-def send_password_reset_email(email, password):
-    send_mail(
-        subject="Новый пароль",
-        message=f"Привет, вот твой новый пароль {password}",
-        from_email=EMAIL_HOST_USER,
-        recipient_list=[email]
-    )
-
-
-class PasswordResetView(PasswordResetView):
+class PasswordResetView(PasswordResetView, StyleFormMixin):
     form_class = PasswordResetForm
     template_name = "users/password_reset.html"
-    success_url = reverse_lazy('users:password_reset_done')
+    success_url = reverse_lazy('users:login')
 
     def form_valid(self, form):
         email = form.cleaned_data['email']
-        password = generate_random_password()
-        user = authenticate(email=email, password=password)
+        user = User.objects.get(email=email)
+        password = User.objects.make_random_password(length=10)
         if user is not None:
+            send_mail(
+                subject="Новый пароль",
+                message=f"Привет, вот твой новый пароль {password}",
+                from_email=EMAIL_HOST_USER,
+                recipient_list=[email]
+            )
             user.set_password(password)
             user.save()
-            send_password_reset_email(email, password)
-        return super().form_valid(form)
+        return redirect(reverse('users:login'))
+
 
 
 class CustomLoginView(LoginView):
