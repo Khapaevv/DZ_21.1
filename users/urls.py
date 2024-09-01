@@ -14,5 +14,5 @@ urlpatterns = [
     path('registration/', UserCreateView.as_view(), name='registration'),
     path('email-confirm/<str:token>', email_verification, name='email-confirm'),
     path('password-reset/', UserPasswordResetView.as_view(), name='password_reset'),
-    path('no_mail/', NoMailView.as_view(), name='no_mail.html')
+    path('no_mail/', NoMailView.as_view(), name='no_mail')
 ]
