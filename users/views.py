@@ -1,5 +1,7 @@
 import secrets
 
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.views import PasswordResetView, LoginView
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
@@ -36,6 +38,20 @@ def email_verification(request, token):
     user.is_active = True
     user.save()
     return redirect(reverse("users:login"))
+
+
+class PasswordResetView(PasswordResetView):
+    form_class = PasswordResetForm
+    template_name = "users/password_reset.html"
+    success_url = reverse_lazy("users:login")
+
+
+class CustomLoginView(LoginView):
+    model = User
+    template_name = 'users/login.html'  # путь к вашему шаблону логина
+    redirect_authenticated_user = True  # перенаправление аутентифицированных пользователей
+
+       # Дополнительные настройки можно добавить здесь
 
 
 
