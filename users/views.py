@@ -1,18 +1,21 @@
 import secrets
 
+from django.contrib.auth import authenticate
 from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.views import PasswordResetView, LoginView
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView
 
+from catalog.forms import StyleFormMixin
 from config.settings import EMAIL_HOST_USER
 from users.forms import UserRegisterForm
 from users.models import User
 
 
-class UserCreateView(CreateView):
+class UserCreateView(CreateView, StyleFormMixin):
     model = User
     form_class = UserRegisterForm
     success_url = reverse_lazy('users:login')
@@ -40,10 +43,27 @@ def email_verification(request, token):
     return redirect(reverse("users:login"))
 
 
-class PasswordResetView(PasswordResetView):
+
+class PasswordResetView(PasswordResetView, StyleFormMixin):
     form_class = PasswordResetForm
     template_name = "users/password_reset.html"
-    success_url = reverse_lazy("users:login")
+    success_url = reverse_lazy('users:login')
+
+    def form_valid(self, form):
+        email = form.cleaned_data['email']
+        user = User.objects.get(email=email)
+        password = User.objects.make_random_password(length=10)
+        if user is not None:
+            send_mail(
+                subject="Новый пароль",
+                message=f"Привет, вот твой новый пароль {password}",
+                from_email=EMAIL_HOST_USER,
+                recipient_list=[email]
+            )
+            user.set_password(password)
+            user.save()
+        return redirect(reverse('users:login'))
+
 
 
 class CustomLoginView(LoginView):
@@ -51,7 +71,6 @@ class CustomLoginView(LoginView):
     template_name = 'users/login.html'  # путь к вашему шаблону логина
     redirect_authenticated_user = True  # перенаправление аутентифицированных пользователей
 
-       # Дополнительные настройки можно добавить здесь
 
 
 
