@@ -1,6 +1,8 @@
 import secrets
 
+from django.contrib.auth import authenticate
 from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.views import PasswordResetView, LoginView
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect
@@ -40,10 +42,36 @@ def email_verification(request, token):
     return redirect(reverse("users:login"))
 
 
+def generate_random_password():
+    password = (secrets.token_hex(8))
+    new_password = make_password(password)
+    # print(new_password)
+    return 'new_password'
+
+
+def send_password_reset_email(email, password):
+    send_mail(
+        subject="Новый пароль",
+        message=f"Привет, вот твой новый пароль {password}",
+        from_email=EMAIL_HOST_USER,
+        recipient_list=[email]
+    )
+
+
 class PasswordResetView(PasswordResetView):
     form_class = PasswordResetForm
     template_name = "users/password_reset.html"
-    success_url = reverse_lazy("users:login")
+    success_url = reverse_lazy('users:password_reset_done')
+
+    def form_valid(self, form):
+        email = form.cleaned_data['email']
+        password = generate_random_password()
+        user = authenticate(email=email, password=password)
+        if user is not None:
+            user.set_password(password)
+            user.save()
+            send_password_reset_email(email, password)
+        return super().form_valid(form)
 
 
 class CustomLoginView(LoginView):
@@ -51,7 +79,6 @@ class CustomLoginView(LoginView):
     template_name = 'users/login.html'  # путь к вашему шаблону логина
     redirect_authenticated_user = True  # перенаправление аутентифицированных пользователей
 
-       # Дополнительные настройки можно добавить здесь
 
 
 
