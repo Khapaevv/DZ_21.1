@@ -1,5 +1,7 @@
 from django.db import models, connection
 
+from users.models import User
+
 NULLABLE = {"blank": True, "null": True}
 
 
@@ -61,6 +63,7 @@ class Product(models.Model):
     updated_at = models.DateTimeField(
         auto_now=True, verbose_name="Дата последнего изменения"
     )
+    owner = models.ForeignKey(User, verbose_name="Пользователь", **NULLABLE, on_delete=models.SET_NULL)
 
     class Meta:
         verbose_name = "Продукт"
