@@ -63,17 +63,20 @@ class Product(models.Model):
     updated_at = models.DateTimeField(
         auto_now=True, verbose_name="Дата последнего изменения"
     )
-    owner = models.ForeignKey(User, verbose_name="Пользователь", **NULLABLE, on_delete=models.SET_NULL)
-    is_published = models.BooleanField(verbose_name="Опубликовано", help_text="ВОпубликовано?", default=False)
-
+    owner = models.ForeignKey(
+        User, verbose_name="Пользователь", **NULLABLE, on_delete=models.SET_NULL
+    )
+    is_published = models.BooleanField(
+        verbose_name="Опубликовано", help_text="ВОпубликовано?", default=False
+    )
 
     class Meta:
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
         permissions = [
-            ('can_change_description', "Can change description of product"),
-            ('can_change_category', "Can change category of product"),
-            ('can_cancel__is_published', "Can cancel is_published")
+            ("can_change_description", "Can change description of product"),
+            ("can_change_category", "Can change category of product"),
+            ("can_cancel__is_published", "Can cancel is_published"),
         ]
 
     def __str__(self):

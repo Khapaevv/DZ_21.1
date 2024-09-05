@@ -6,12 +6,24 @@ NULLABLE = {"blank": True, "null": True}
 
 class User(AbstractUser):
     username = None
-    email = models.EmailField(unique=True, verbose_name="Email", help_text="Введите email")
-    phone = models.CharField(max_length=13, verbose_name="Номер телефона", help_text="Введите номер телефона",
-                             **NULLABLE)
-    avatar = models.ImageField(upload_to="users/avatars/", verbose_name="Аватар", help_text="Загрузите аватар",
-                               **NULLABLE)
-    country = models.CharField(max_length=50, verbose_name="Страна", help_text="Введите страну", **NULLABLE)
+    email = models.EmailField(
+        unique=True, verbose_name="Email", help_text="Введите email"
+    )
+    phone = models.CharField(
+        max_length=13,
+        verbose_name="Номер телефона",
+        help_text="Введите номер телефона",
+        **NULLABLE
+    )
+    avatar = models.ImageField(
+        upload_to="users/avatars/",
+        verbose_name="Аватар",
+        help_text="Загрузите аватар",
+        **NULLABLE
+    )
+    country = models.CharField(
+        max_length=50, verbose_name="Страна", help_text="Введите страну", **NULLABLE
+    )
 
     token = models.CharField(max_length=100, verbose_name="Token", **NULLABLE)
 

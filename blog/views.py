@@ -1,15 +1,21 @@
 from django.urls import reverse_lazy, reverse
 from django.utils.text import slugify
 from django.shortcuts import get_object_or_404, redirect
-from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
+from django.views.generic import (
+    CreateView,
+    ListView,
+    DetailView,
+    UpdateView,
+    DeleteView,
+)
 
 from blog.models import Blog
 
 
 class BlogCreateView(CreateView):
     model = Blog
-    fields = ('title', 'content', 'image', 'is_publication')
-    success_url = reverse_lazy('blog:list')
+    fields = ("title", "content", "image", "is_publication")
+    success_url = reverse_lazy("blog:list")
 
     # def form_valid(self, form):
     #     form.instance.slug = slugify(form.instance.title)
@@ -41,18 +47,20 @@ class BlogDetailView(DetailView):
         self.object.save()
         return self.object
 
+
 class BlogUpdateView(UpdateView):
     model = Blog
-    fields = ('title', 'content', 'image', 'is_publication')
-    success_url = reverse_lazy('blog:list')
+    fields = ("title", "content", "image", "is_publication")
+    success_url = reverse_lazy("blog:list")
 
     def get_success_url(self):
-        return reverse('blog:view', args=[self.kwargs.get('pk')])
+        return reverse("blog:view", args=[self.kwargs.get("pk")])
 
 
 class BlogDeleteView(DeleteView):
     model = Blog
-    success_url = reverse_lazy('blog:list')
+    success_url = reverse_lazy("blog:list")
+
 
 def blog_is_publication(request, pk):
     blog_item = get_object_or_404(Blog, pk=pk)
@@ -62,5 +70,4 @@ def blog_is_publication(request, pk):
         blog_item.is_publication = True
 
     blog_item.save()
-    return redirect(reverse('blog:list'))
-
+    return redirect(reverse("blog:list"))

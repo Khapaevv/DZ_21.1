@@ -64,7 +64,7 @@ class ProductCreateView(CreateView, LoginRequiredMixin):
     #     return redirect('catalog:products_list', product.pk)
 
 
-class ProductUpdateView(UpdateView, LoginRequiredMixin):
+class ProductUpdateView(UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy("catalog:products_list")
@@ -98,9 +98,9 @@ class ProductUpdateView(UpdateView, LoginRequiredMixin):
         if user == self.object.owner:
             return ProductForm
         if (
-            user.has_perm("products.can_change_description")
-            and user.has_perm("products.can_change_category")
-            and user.has_perm("products.can_cancel__is_published")
+            user.has_perm("catalog.can_change_description")
+            and user.has_perm("catalog.can_change_category")
+            and user.has_perm("catalog.can_cancel__is_published")
         ):
             return ProductModeratorForm
         raise PermissionDenied
