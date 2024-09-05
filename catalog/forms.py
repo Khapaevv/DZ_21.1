@@ -7,9 +7,9 @@ class StyleFormMixin:
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             if isinstance(field, BooleanField):
-                field.widget.attrs['class'] = 'form-check-input'
+                field.widget.attrs["class"] = "form-check-input"
             else:
-                field.widget.attrs['class'] = 'form-control'
+                field.widget.attrs["class"] = "form-control"
 
 
 class ProductForm(StyleFormMixin, ModelForm):
@@ -18,48 +18,54 @@ class ProductForm(StyleFormMixin, ModelForm):
         exclude = ("owner",)
         # fields = '__all__'
 
-
     def clean_name(self):
-        cleaned_data = self.cleaned_data['name']
+        cleaned_data = self.cleaned_data["name"]
         forbidden_words = [
-            'казино',
-            'криптовалюта',
-            'крипта',
-            'биржа',
-            'дешево',
-            'бесплатно',
-            'обман',
-            'полиция',
-            'радар'
+            "казино",
+            "криптовалюта",
+            "крипта",
+            "биржа",
+            "дешево",
+            "бесплатно",
+            "обман",
+            "полиция",
+            "радар",
         ]
         for word in forbidden_words:
             if word in cleaned_data:
-                raise forms.ValidationError('В названии продукта не должно быть запрещенных слов')
+                raise forms.ValidationError(
+                    "В названии продукта не должно быть запрещенных слов"
+                )
         return cleaned_data
 
     def clean_description(self):
-        cleaned_data = self.cleaned_data['description']
+        cleaned_data = self.cleaned_data["description"]
         forbidden_words = [
-            'казино',
-            'криптовалюта',
-            'крипта',
-            'биржа',
-            'дешево',
-            'бесплатно',
-            'обман',
-            'полиция',
-            'радар'
+            "казино",
+            "криптовалюта",
+            "крипта",
+            "биржа",
+            "дешево",
+            "бесплатно",
+            "обман",
+            "полиция",
+            "радар",
         ]
         for word in forbidden_words:
             if word in cleaned_data:
-                raise forms.ValidationError('В описании продукта не должно быть запрещенных слов')
+                raise forms.ValidationError(
+                    "В описании продукта не должно быть запрещенных слов"
+                )
         return cleaned_data
+
+
+class ProductModeratorForm(StyleFormMixin, ModelForm):
+    class Meta:
+        model = Product
+        fields = ("is_published", "description", "category")
 
 
 class VersionForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Version
-        fields = '__all__'
-
-
-
+        fields = "__all__"
