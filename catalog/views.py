@@ -18,6 +18,12 @@ from catalog.models import Product, Version
 class ProductListView(ListView):
     model = Product
 
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset(*args, **kwargs)
+        queryset = queryset.filter(is_published=True)
+        return queryset
+
     def get_context_data(self, *args, **kwargs):
         context_data = super().get_context_data(*args, **kwargs)
         for product in context_data["product_list"]:
