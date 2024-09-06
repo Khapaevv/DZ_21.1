@@ -18,7 +18,7 @@ from users.models import User
 class UserCreateView(CreateView, StyleFormMixin):
     model = User
     form_class = UserRegisterForm
-    success_url = reverse_lazy('users:login')
+    success_url = reverse_lazy("users:login")
 
     def form_valid(self, form):
         user = form.save()
@@ -27,14 +27,15 @@ class UserCreateView(CreateView, StyleFormMixin):
         user.token = token
         user.save()
         host = self.request.get_host()
-        url = f'http://{host}/users/email-confirm/{token}'
+        url = f"http://{host}/users/email-confirm/{token}"
         send_mail(
             subject="Подтверждение почты",
             message=f"Привет, для подтверждения почты необходимо перейти по этой ссылке {url}",
             from_email=EMAIL_HOST_USER,
-            recipient_list=[user.email]
+            recipient_list=[user.email],
         )
         return super().form_valid(form)
+
 
 def email_verification(request, token):
     user = get_object_or_404(User, token=token)
@@ -43,14 +44,13 @@ def email_verification(request, token):
     return redirect(reverse("users:login"))
 
 
-
 class UserPasswordResetView(PasswordResetView, StyleFormMixin):
     form_class = PasswordResetForm
     template_name = "users/password_reset.html"
-    success_url = reverse_lazy('users:password_reset_confirm')
+    success_url = reverse_lazy("users:password_reset_confirm")
 
     def form_valid(self, form):
-        email = form.cleaned_data['email']
+        email = form.cleaned_data["email"]
         try:
             user = User.objects.get(email=email)
             if user:
@@ -61,26 +61,20 @@ class UserPasswordResetView(PasswordResetView, StyleFormMixin):
                     subject="Новый пароль",
                     message=f"Привет, вот твой новый пароль {password}",
                     from_email=EMAIL_HOST_USER,
-                    recipient_list=[email]
+                    recipient_list=[email],
                 )
-            return redirect(reverse('users:login'))
+            return redirect(reverse("users:login"))
         except:
-            return redirect(reverse('users:no_mail'))
-
+            return redirect(reverse("users:no_mail"))
 
 
 class NoMailView(TemplateView):
     template_name = "users/no_mail.html"
 
 
-
 class CustomLoginView(LoginView):
     model = User
-    template_name = 'users/login.html'  # путь к вашему шаблону логина
-    redirect_authenticated_user = True  # перенаправление аутентифицированных пользователей
-
-
-
-
-
-
+    template_name = "users/login.html"  # путь к вашему шаблону логина
+    redirect_authenticated_user = (
+        True  # перенаправление аутентифицированных пользователей
+    )

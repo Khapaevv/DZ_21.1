@@ -1,6 +1,13 @@
 from django.urls import path, include
 from blog.apps import BlogConfig
-from blog.views import BlogCreateView, BlogListView, BlogDetailView, BlogUpdateView, BlogDeleteView, blog_is_publication
+from blog.views import (
+    BlogCreateView,
+    BlogListView,
+    BlogDetailView,
+    BlogUpdateView,
+    BlogDeleteView,
+    blog_is_publication,
+)
 
 # from catalog.views import ProductListView, ContactsPageView, ProductDetailView
 
