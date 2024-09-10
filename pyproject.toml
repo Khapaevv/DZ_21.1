@@ -14,6 +14,7 @@ black = "^24.4.2"
 ipython = "^8.26.0"
 pytils = "^0.4.1"
 django = "4.2.2"
+redis = "^5.0.8"
 
 
 [build-system]
