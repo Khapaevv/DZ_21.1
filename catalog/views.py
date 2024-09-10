@@ -11,19 +11,19 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
+
 from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
-from catalog.models import Product, Version
+from catalog.models import Product, Version, Category
+from catalog.services import get_category_from_cache
 
 
 class ProductListView(ListView):
     model = Product
 
-
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset(*args, **kwargs)
         queryset = queryset.filter(is_published=True)
         return queryset
-
 
     def get_context_data(self, *args, **kwargs):
         context_data = super().get_context_data(*args, **kwargs)
@@ -117,3 +117,11 @@ class ContactsPageView(TemplateView):
                 f"{name} написал следующее сообщение: {message}, контактный телефон: {phone}"
             )
         return render(request, "catalog/contacts.html")
+
+
+class CategoryListView(ListView):
+    model = Category
+    success_url = reverse_lazy("catalog:category_list.html")
+
+    def get_queryset(self):
+        return get_category_from_cache()
